@@ -10,12 +10,18 @@ COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www
 
+COPY . /var/www
+
 # Instalar dependencias de Laravel
 RUN composer global require laravel/installer
 
-#CMD ["php-fpm"]
+
+CMD ["php-fpm"]
 
 ENV PORT=8080
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=${PORT}"]
+#CMD ["nginx", "-g", "daemon off;"]
+#CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=${PORT}"]
+#CMD php artisan serve --host=0.0.0.0 --port=$PORT
+
 
 
