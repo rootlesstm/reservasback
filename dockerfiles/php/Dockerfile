@@ -13,7 +13,9 @@ WORKDIR /var/www
 # Instalar dependencias de Laravel
 RUN composer global require laravel/installer
 
-CMD ["php-fpm"]
+#CMD ["php-fpm"]
 
-#CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8080"]
+ENV PORT=8080
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=${PORT}"]
+
 
