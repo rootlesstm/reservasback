@@ -1,4 +1,5 @@
-FROM php:8.3-fpm
+#FROM php:8.3-fpm
+FROM php:8.3
 
 # Instalar dependencias del sistema
 RUN apt-get update && apt-get install -y \
@@ -15,16 +16,16 @@ COPY . /var/www
 # Instalar dependencias de Laravel
 RUN composer global require laravel/installer
 
-ENV PORT 8080
+ENV APP_PORT=8080
 
 EXPOSE 8080
 
 #CMD ["php-fpm"]
 
-CMD ["sh", "-c", "php-fpm"]
+#CMD ["sh", "-c", "php-fpm"]
 #CMD ["nginx", "-g", "daemon off;"]
 #CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=${PORT}"]
-#CMD php artisan serve --host=0.0.0.0 --port=$PORT
+CMD php artisan serve --host=0.0.0.0 --port=$APP_PORT
 
 
 
