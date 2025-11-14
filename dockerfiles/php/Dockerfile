@@ -24,8 +24,8 @@ EXPOSE 8080
 
 #CMD ["sh", "-c", "php-fpm"]
 #CMD ["nginx", "-g", "daemon off;"]
-#CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=${PORT}"]
-CMD php artisan serve --host=0.0.0.0 --port=$APP_PORT
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=${PORT}"]
+#CMD php artisan serve --host=0.0.0.0 --port=$APP_PORT*
 
 
 
