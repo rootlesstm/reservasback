@@ -15,11 +15,13 @@ COPY . /var/www
 # Instalar dependencias de Laravel
 RUN composer global require laravel/installer
 
+ENV PORT 8080
+
 EXPOSE 8080
 
-CMD ["php-fpm"]
+#CMD ["php-fpm"]
 
-#ENV PORT=8080
+CMD ["sh", "-c", "php-fpm"]
 #CMD ["nginx", "-g", "daemon off;"]
 #CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=${PORT}"]
 #CMD php artisan serve --host=0.0.0.0 --port=$PORT
