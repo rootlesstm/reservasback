@@ -8,22 +8,28 @@ use Illuminate\Support\Facades\Auth;
 class BookingController extends Controller
 {
     // GET /api/bookings?room_id=1&date=YYYY-MM-DD
-    public function index(Request $request)
+    public function filter(Request $request, $id)
     {
-        $request->validate([
-            'room_id' => 'required|integer|exists:rooms,id',
-            'date'    => 'required|date',
-        ]);
+        // $request->validate([
+        //     'room_id' => 'required|integer|exists:rooms,id',
+        //     'date'    => 'required|date',
+        // ]);
 
-        $startOfDay = $request->date . ' 00:00:00';
-        $endOfDay   = $request->date . ' 23:59:59';
+        //$startOfDay = $request->date . ' 00:00:00';
+        //$endOfDay   = $request->date . ' 23:59:59';
 
-        $bookings = Booking::where('room_id', $request->room_id)
-            ->whereBetween('start_time', [$startOfDay, $endOfDay])
-            ->orderBy('start_time')
+        $bookings = Booking::where('room_id', $id)
+        //->whereBetween('start_time', [$startOfDay, $endOfDay])
+            ->with(['user', 'room'])
             ->get();
 
         return response()->json($bookings);
+    }
+
+    public function index()
+    {
+        #return response()->json(Booking::all());
+        return response()->json(Booking::with(['user', 'room'])->get());
     }
 
     public function update(Request $request, $id)
